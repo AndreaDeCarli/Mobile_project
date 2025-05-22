@@ -8,7 +8,13 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CornerSize
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Add
@@ -25,6 +31,8 @@ import androidx.compose.material.icons.sharp.AccountCircle
 import androidx.compose.material.icons.sharp.Favorite
 import androidx.compose.material.icons.sharp.Home
 import androidx.compose.material3.BottomAppBar
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.FloatingActionButtonDefaults
@@ -33,6 +41,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconToggleButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
@@ -44,7 +53,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.elaborato_mobile.ui.theme.Elaborato_MobileTheme
 
 class MainActivity : ComponentActivity() {
@@ -61,8 +72,7 @@ class MainActivity : ComponentActivity() {
                     Column(
                         modifier = Modifier.padding(innerPadding),
                     ) {
-                        Text("god")
-                        Text("help me")
+                        ScrollableList()
                     }
 
                 }
@@ -108,18 +118,6 @@ fun BottomBar(){
     }
 }
 
-@Composable
-fun IconToggleButtonSample(filled: ImageVector, outline: ImageVector, desc: String) {
-    var checked by remember { mutableStateOf(false) }
-    IconToggleButton(checked = checked, onCheckedChange = { checked = it }) {
-        if (checked) {
-            Icon(filled, desc)
-        } else {
-            Icon(outline, desc)
-        }
-    }
-}
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -135,7 +133,29 @@ fun TopBar(){
     )
 }
 
+@Composable
+fun ScrollableList() {
+    val elems = (0..10).map { "Lista $it" }
+    val scrollState = rememberScrollState()
+    Column(modifier = Modifier.verticalScroll(scrollState).fillMaxWidth()) {
+        for (elem in elems) ListItem(elem)
+    }
+}
 
+@Composable
+fun ListItem(string: String){
+    Card(
+        elevation = CardDefaults.cardElevation(
+            defaultElevation = 6.dp
+        ),
+        modifier = Modifier.fillMaxWidth().padding(horizontal = 5.dp, vertical = 4.dp),
+        shape = CardDefaults.shape,
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primary)
+    ) {
+        Text(text = string, modifier = Modifier.padding(15.dp), fontSize = 20.sp)
+        Text(text = "Prova prova deca è bello è un grande prova test della scritta ", modifier = Modifier.padding(15.dp))
+    }
+}
 
 @Composable
 fun AddButton(){
