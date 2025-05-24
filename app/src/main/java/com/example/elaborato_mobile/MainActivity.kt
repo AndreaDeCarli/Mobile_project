@@ -44,6 +44,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.compose.rememberNavController
+import com.example.elaborato_mobile.ui.ShoppingNavGraph
+import com.example.elaborato_mobile.ui.composables.AddButton
+import com.example.elaborato_mobile.ui.composables.BottomBar
+import com.example.elaborato_mobile.ui.composables.LazyList
+import com.example.elaborato_mobile.ui.composables.TopBar
 import com.example.elaborato_mobile.ui.theme.Elaborato_MobileTheme
 
 class MainActivity : ComponentActivity() {
@@ -52,108 +58,13 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             Elaborato_MobileTheme {
-                Scaffold(
-                    topBar = { TopBar() },
-                    bottomBar = {BottomBar()},
-                    floatingActionButton = {AddButton()}
-                ) { innerPadding ->
-                    Column(
-                        modifier = Modifier.padding(innerPadding),
-                    ) {
-                        LazyList()
-                    }
-
-                }
+                val navController = rememberNavController()
+                ShoppingNavGraph(navController)
             }
         }
     }
 }
 
 
-@Composable
-fun BottomBar(){
-    BottomAppBar (
-        containerColor = MaterialTheme.colorScheme.primaryContainer,
-    ) {
-        Row(
-            modifier = Modifier.fillMaxSize(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceAround
-        ) {
-            var active by remember { mutableStateOf(1) }
-            IconButton( onClick = {active = 1}, modifier = Modifier.padding(20.dp)) {
-                if (active == 1){
-                    Icon(Icons.Filled.Home, "Home")
-                }else{
-                    Icon(Icons.Outlined.Home, "Home")
-                }
-            }
-            IconButton( onClick = {active = 2}, modifier = Modifier.padding(20.dp)) {
-                if (active == 2){
-                    Icon(Icons.Filled.Favorite, "Favorite")
-                }else{
-                    Icon(Icons.Outlined.FavoriteBorder, "Favorite")
-                }
-            }
-            IconButton( onClick = {active = 3}, modifier = Modifier.padding(20.dp)) {
-                if (active == 3){
-                    Icon(Icons.Filled.AccountCircle, "Profile")
-                }else{
-                    Icon(Icons.Outlined.AccountCircle, "Profile")
-                }
-            }
-        }
-    }
-}
 
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun TopBar(){
-    TopAppBar(
-        title = { Text("Main page") },
-        colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.primaryContainer),
-        actions = {
-            IconButton( onClick = { TODO() }) {
-                Icon(Icons.Filled.Settings, "Settings")
-            }
-        }
-    )
-}
-
-
-@Composable
-fun ListItem(string: String){
-    Card(
-        elevation = CardDefaults.cardElevation(
-            defaultElevation = 6.dp
-        ),
-        modifier = Modifier.fillMaxWidth().padding(horizontal = 5.dp, vertical = 4.dp),
-        shape = CardDefaults.shape,
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primary)
-    ) {
-        Text(text = string, modifier = Modifier.padding(15.dp), fontSize = 20.sp)
-        Text(text = "Prova prova deca è bello è un grande prova test della scritta ", modifier = Modifier.padding(15.dp))
-    }
-}
-
-@Composable
-fun LazyList(){
-    val elems = (0..10).map { "Lista $it" }
-    LazyColumn(modifier = Modifier.fillMaxWidth()) {
-        items(elems.size) { index ->
-            ListItem(elems[index])
-        }
-    }
-}
-
-@Composable
-fun AddButton(){
-    FloatingActionButton(
-        onClick = { TODO() },
-        containerColor = MaterialTheme.colorScheme.secondary,
-        elevation = FloatingActionButtonDefaults.elevation()
-    ) {
-        Icon(Icons.Filled.Add, "Add")
-    }
-}
