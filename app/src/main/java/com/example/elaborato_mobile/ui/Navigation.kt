@@ -6,11 +6,13 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.elaborato_mobile.ui.screens.Favorites
 import com.example.elaborato_mobile.ui.screens.Homepage
+import com.example.elaborato_mobile.ui.screens.Profile
 import kotlinx.serialization.Serializable
 
 sealed interface ShoppingRoute {
     @Serializable data object Home : ShoppingRoute
     @Serializable data object Favorites : ShoppingRoute
+    @Serializable data object Profile : ShoppingRoute
 }
 
 @Composable
@@ -23,6 +25,9 @@ fun ShoppingNavGraph(navController: NavHostController) {
         }
         composable<ShoppingRoute.Favorites> {
             Favorites(navController)
+        }
+        composable<ShoppingRoute.Profile> {
+            Profile(navController)
         }
     }
 }
