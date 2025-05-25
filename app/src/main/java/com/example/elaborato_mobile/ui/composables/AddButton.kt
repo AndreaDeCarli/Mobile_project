@@ -7,13 +7,15 @@ import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavController
+import com.example.elaborato_mobile.ui.ShoppingRoute
 
 
 @Composable
-fun AddButton(){
+fun AddButton(navController: NavController){
     FloatingActionButton(
-        onClick = { TODO() },
-        containerColor = MaterialTheme.colorScheme.secondary,
+        onClick = { navController.navigate(ShoppingRoute.AddNewList) },
+        containerColor = MaterialTheme.colorScheme.surface,
         elevation = FloatingActionButtonDefaults.elevation()
     ) {
         Icon(Icons.Filled.Add, "Add")

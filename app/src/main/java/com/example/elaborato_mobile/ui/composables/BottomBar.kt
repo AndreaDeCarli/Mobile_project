@@ -9,6 +9,7 @@ import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.outlined.AccountCircle
+import androidx.compose.material.icons.outlined.Favorite
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material3.BottomAppBar
@@ -16,6 +17,9 @@ import androidx.compose.material3.BottomAppBarDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarDefaults
+import androidx.compose.material3.NavigationBarItem
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -29,8 +33,8 @@ import com.example.elaborato_mobile.ui.ShoppingRoute
 @Composable
 fun BottomBar(navController: NavController, active: Int){
     BottomAppBar(
-        containerColor = colorResource(R.color.dark_water_blue),
-        contentColor = colorResource(R.color.dark_powder_blue)
+        containerColor = MaterialTheme.colorScheme.primary,
+        contentColor = MaterialTheme.colorScheme.onPrimary
     ) {
         Row(
             modifier = Modifier.fillMaxSize(),
@@ -65,5 +69,30 @@ fun BottomBar(navController: NavController, active: Int){
                 }
             }
         }
+    }
+}
+
+@Composable
+fun NavBottomBar(navController: NavController, active: Int){
+    NavigationBar (
+        containerColor = MaterialTheme.colorScheme.primary,
+        contentColor = MaterialTheme.colorScheme.onPrimary,
+        windowInsets = NavigationBarDefaults.windowInsets
+    ) {
+        NavigationBarItem(
+            onClick = { navController.navigate(ShoppingRoute.Home) },
+            selected =  active == 1 ,
+            icon = { Icon(Icons.Outlined.Home, "Home") }
+        )
+        NavigationBarItem(
+            onClick = { navController.navigate(ShoppingRoute.Favorites) },
+            selected =  active == 2 ,
+            icon = { Icon(Icons.Outlined.FavoriteBorder, "Favorite") }
+        )
+        NavigationBarItem(
+            onClick = { navController.navigate(ShoppingRoute.Profile) },
+            selected =  active == 3 ,
+            icon = { Icon(Icons.Outlined.AccountCircle, "Profile") }
+        )
     }
 }
