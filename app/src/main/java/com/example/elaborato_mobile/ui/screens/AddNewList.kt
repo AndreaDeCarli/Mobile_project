@@ -15,12 +15,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.elaborato_mobile.ui.composables.ConfirmButton
 import com.example.elaborato_mobile.ui.composables.TopBar
 
 @Composable
 fun AddNewList (navController: NavController){
     Scaffold (
-        topBar = { TopBar(navController, "Add new List", true) }
+        topBar = { TopBar(navController, "Add new List", true) },
+        floatingActionButton = { ConfirmButton(navController) }
     ) { innerpadding ->
         Column (
             modifier = Modifier.fillMaxSize().padding(innerpadding)
