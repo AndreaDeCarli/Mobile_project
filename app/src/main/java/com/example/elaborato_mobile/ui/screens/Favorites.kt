@@ -26,7 +26,6 @@ fun Favorites(navController: NavController) {
             color = MaterialTheme.colorScheme.surface,
 
             ) {
-            LazyList("Prodotto", 8)
         }
     }
 }

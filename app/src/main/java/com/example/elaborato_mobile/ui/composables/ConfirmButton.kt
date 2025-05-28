@@ -6,9 +6,10 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
+import com.example.elaborato_mobile.ui.AddShopListState
 
 @Composable
-fun ConfirmButton(navController: NavController){
+fun ConfirmButton(state: AddShopListState,navController: NavController){
     FloatingActionButton(onClick = {navController.navigateUp()}) {
         Icon(Icons.Filled.Check, "Confirm")
     }

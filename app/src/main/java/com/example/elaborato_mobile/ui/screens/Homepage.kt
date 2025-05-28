@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.navigation.NavController
 import com.example.elaborato_mobile.R
+import com.example.elaborato_mobile.ui.ShopListState
 import com.example.elaborato_mobile.ui.composables.AddButton
 import com.example.elaborato_mobile.ui.composables.BottomBar
 import com.example.elaborato_mobile.ui.composables.LazyList
@@ -19,7 +20,7 @@ import com.example.elaborato_mobile.ui.composables.TopBar
 
 
 @Composable
-fun Homepage (navcontroller: NavController) {
+fun Homepage (shopListstate: ShopListState, navcontroller: NavController) {
     Scaffold(
         topBar = { TopBar(navcontroller, "Homepage") },
         bottomBar = { NavBottomBar(navcontroller, 1) },
@@ -30,7 +31,7 @@ fun Homepage (navcontroller: NavController) {
             color = MaterialTheme.colorScheme.surface,
 
         ) {
-            LazyList("Lista", 4)
+            LazyList(shopListstate)
         }
     }
 }

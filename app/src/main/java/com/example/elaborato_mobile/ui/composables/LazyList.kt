@@ -11,6 +11,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListPrefetchScope
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.outlined.Image
@@ -33,6 +35,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.elaborato_mobile.ui.ShopListState
 
 
 @Composable
@@ -56,7 +59,7 @@ fun ListItem(string: String){
 }
 
 @Composable
-fun ShoppingListCard(string: String) {
+fun ShoppingListCard(title: String, date: String) {
     var expanded by remember { mutableStateOf(false) }
     Card(
         elevation = CardDefaults.cardElevation(
@@ -95,9 +98,9 @@ fun ShoppingListCard(string: String) {
                     .padding(horizontal = 5.dp)
                     .weight(0.65F)
             ) {
-                Text(text = string, fontSize = 20.sp, modifier = Modifier.padding(5.dp), color = MaterialTheme.colorScheme.onSecondary)
+                Text(text = title, fontSize = 20.sp, modifier = Modifier.padding(5.dp), color = MaterialTheme.colorScheme.onSecondary)
                 Text(
-                    text = "Details of the thing in the card",
+                    text = date,
                     fontSize = 14.sp,
                     modifier = Modifier.padding(5.dp),
                     color = MaterialTheme.colorScheme.onSecondary
@@ -129,17 +132,14 @@ fun ShoppingListCard(string: String) {
 }
 
 @Composable
-fun LazyList(
-    string: String,
-    number: Int,
-    modifier: Modifier = Modifier
+fun LazyList(state: ShopListState
 ){
-    val elems = (1..number).map { "$string - $it" }
-    LazyColumn(
-        modifier = modifier.fillMaxSize(),
-    ) {
-        items(elems.size) { index ->
-            ShoppingListCard(elems[index])
+    if (state.shopLists.isNotEmpty()){
+        LazyColumn(modifier = Modifier.fillMaxSize()) {
+            items(state.shopLists) {item ->
+                ShoppingListCard(item.title, item.date)
+            }
         }
     }
+
 }

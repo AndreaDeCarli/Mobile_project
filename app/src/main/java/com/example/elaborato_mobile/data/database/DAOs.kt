@@ -18,9 +18,6 @@ interface ProfileDao{
     @Delete
     fun delete(profile: Profile)
 
-    @Transaction
-    @Query("SELECT * FROM profile")
-    fun getProfileWithShopList(): List<ProfileWithShopList>
 
 }
 
@@ -30,14 +27,11 @@ interface ShopListDao{
     fun getAll(): Flow<List<ShopList>>
 
     @Upsert
-    fun upsert(shopList: ShopList)
+    suspend fun upsert(shopList: ShopList)
 
     @Delete
-    fun delete(shopList: ShopList)
+    suspend fun delete(shopList: ShopList)
 
-    @Transaction
-    @Query("SELECT * FROM shoplist")
-    fun getShopListWithProducts(): List<ShopListwithProduct>
 }
 
 @Dao
