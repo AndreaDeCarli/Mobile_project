@@ -27,29 +27,26 @@ private val DarkColorScheme = darkColorScheme(
 
 private val LightColorScheme = lightColorScheme(
     primary = BluePrimary,
-    onPrimary = Color.White, // White text on primary blue for contrast
+    onPrimary = Color.White,
 
     secondary = BlueSecondary,
-    onSecondary = Color.White, // White text for secondary elements
+    onSecondary = Color.White,
 
     background = BackgroundLight,
-    onBackground = TextPrimary, // Dark text on the light background
+    onBackground = TextPrimary,
 
     surface = SurfaceBackground,
-    onSurface = TextPrimary,   // Primary text on white surface
+    onSurface = TextPrimary,
 
     error = ErrorRed,
-    onError = Color.White,  // White text on error red background
+    onError = Color.White,
 
-    // Additional colors
-    surfaceVariant = SurfaceBackground,      // White surface for cards
-    onSurfaceVariant = TextPrimary, // Dark text color for text on surface variants
+    surfaceVariant = SurfaceBackground,
+    onSurfaceVariant = TextPrimary,
+    outline = DisabledGrey,
 
-    outline = DisabledGrey, // Muted grey outline for borders
-
-    // Disabled elements
-    onTertiary = DisabledGrey,          // Muted grey for disabled elements
-    onPrimaryContainer = IconAccent      // Orange accent icons for visibility
+    onTertiary = DisabledGrey,
+    onPrimaryContainer = IconAccent
 )
 
 @Composable

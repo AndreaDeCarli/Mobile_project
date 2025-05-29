@@ -7,16 +7,16 @@ import androidx.room.PrimaryKey
 @Entity
 data class ShopList(
     @PrimaryKey(autoGenerate = true)
-    val shopListId: Int = 0,
+    val shopListId: Long = 0,
 
     @ColumnInfo
     val title: String,
 
     @ColumnInfo
-    val profileId: Int,
+    val profileId: Long,
 
     @ColumnInfo
-    val iconId: Int,
+    val iconId: Long,
 
     @ColumnInfo
     val date: String
@@ -25,10 +25,10 @@ data class ShopList(
 @Entity
 data class Product(
     @PrimaryKey(autoGenerate = true)
-    val productId: Int = 0,
+    val productId: Long = 0,
 
     @ColumnInfo
-    val profileId: Int,
+    val profileId: Long,
 
     @ColumnInfo
     val name: String,
@@ -43,8 +43,14 @@ data class Product(
 @Entity
 data class Profile(
     @PrimaryKey(autoGenerate = true)
-    val id: Int = 0,
+    val id: Long = 0,
 
     @ColumnInfo
     val name: String,
     )
+
+@Entity(primaryKeys = ["shopListId", "productId"])
+data class CrossRef(
+    val shopListId: Long,
+    val productId: Long
+)

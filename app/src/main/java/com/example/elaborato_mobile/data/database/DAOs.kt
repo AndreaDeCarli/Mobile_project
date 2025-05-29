@@ -13,11 +13,10 @@ interface ProfileDao{
     fun getAll(): Flow<List<Profile>>
 
     @Upsert
-    fun upsert(profile: Profile)
+    suspend fun upsert(profile: Profile)
 
     @Delete
-    fun delete(profile: Profile)
-
+    suspend fun delete(profile: Profile)
 
 }
 
@@ -32,6 +31,9 @@ interface ShopListDao{
     @Delete
     suspend fun delete(shopList: ShopList)
 
+    @Query("SELECT * FROM shopList WHERE profileId = :id")
+    fun getShopListByProfile(id: Int): Flow<List<ShopList>>
+
 }
 
 @Dao
@@ -40,9 +42,21 @@ interface ProductDao{
     fun getAll(): Flow<List<Product>>
 
     @Upsert
-    fun upsert(product: Product)
+    suspend fun upsert(product: Product)
 
     @Delete
-    fun delete(product: Product)
+    suspend fun delete(product: Product)
+
+    @Query("SELECT * FROM product JOIN crossref ON product.productId = crossref.productId WHERE shopListId = :id")
+    fun getProductsByListId(id: Int): Flow<List<Product>>
+
+    @Query("SELECT * FROM product WHERE profileId = :id AND favorite = 1")
+    fun getFavoritesByProfile(id: Int): Flow<List<Product>>
 }
 
+
+@Dao
+interface CrossRefDao{
+    @Query("SELECT * FROM crossRef")
+    fun getAll(): Flow<List<CrossRef>>
+}

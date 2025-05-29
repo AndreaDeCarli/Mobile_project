@@ -12,6 +12,7 @@ import androidx.compose.ui.res.colorResource
 import androidx.navigation.NavController
 import com.example.elaborato_mobile.R
 import com.example.elaborato_mobile.ui.ShopListState
+import com.example.elaborato_mobile.ui.ShopListViewModel
 import com.example.elaborato_mobile.ui.composables.AddButton
 import com.example.elaborato_mobile.ui.composables.BottomBar
 import com.example.elaborato_mobile.ui.composables.LazyList
@@ -20,18 +21,18 @@ import com.example.elaborato_mobile.ui.composables.TopBar
 
 
 @Composable
-fun Homepage (shopListstate: ShopListState, navcontroller: NavController) {
+fun Homepage (shopListState: ShopListState, navController: NavController, vm: ShopListViewModel) {
     Scaffold(
-        topBar = { TopBar(navcontroller, "Homepage") },
-        bottomBar = { NavBottomBar(navcontroller, 1) },
-        floatingActionButton = { AddButton(navcontroller) }
+        topBar = { TopBar(navController, "Homepage") },
+        bottomBar = { NavBottomBar(navController, 1) },
+        floatingActionButton = { AddButton(navController) }
     ) { innerPadding ->
         Surface(
             modifier = Modifier.padding(innerPadding),
             color = MaterialTheme.colorScheme.surface,
 
         ) {
-            LazyList(shopListstate)
+            LazyList(shopListState, vm)
         }
     }
 }

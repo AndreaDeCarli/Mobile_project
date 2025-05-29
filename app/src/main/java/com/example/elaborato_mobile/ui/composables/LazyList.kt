@@ -35,7 +35,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.elaborato_mobile.data.database.ShopList
 import com.example.elaborato_mobile.ui.ShopListState
+import com.example.elaborato_mobile.ui.ShopListViewModel
 
 
 @Composable
@@ -59,7 +61,7 @@ fun ListItem(string: String){
 }
 
 @Composable
-fun ShoppingListCard(title: String, date: String) {
+fun ShoppingListCard(item: ShopList, vm: ShopListViewModel) {
     var expanded by remember { mutableStateOf(false) }
     Card(
         elevation = CardDefaults.cardElevation(
@@ -98,9 +100,9 @@ fun ShoppingListCard(title: String, date: String) {
                     .padding(horizontal = 5.dp)
                     .weight(0.65F)
             ) {
-                Text(text = title, fontSize = 20.sp, modifier = Modifier.padding(5.dp), color = MaterialTheme.colorScheme.onSecondary)
+                Text(text = item.title, fontSize = 20.sp, modifier = Modifier.padding(5.dp), color = MaterialTheme.colorScheme.onSecondary)
                 Text(
-                    text = date,
+                    text = item.date,
                     fontSize = 14.sp,
                     modifier = Modifier.padding(5.dp),
                     color = MaterialTheme.colorScheme.onSecondary
@@ -122,22 +124,25 @@ fun ShoppingListCard(title: String, date: String) {
                 ) {
                     DropdownMenuItem(
                         text = { Text("Remove") },
-                        onClick = { expanded = false }
+                        onClick = {
+                            vm.deleteShopList(item)
+                            expanded = false
+                        }
                     )
                 }
-
             }
         }
     }
 }
 
 @Composable
-fun LazyList(state: ShopListState
+fun LazyList(state: ShopListState,
+             vm: ShopListViewModel
 ){
     if (state.shopLists.isNotEmpty()){
         LazyColumn(modifier = Modifier.fillMaxSize()) {
             items(state.shopLists) {item ->
-                ShoppingListCard(item.title, item.date)
+                ShoppingListCard(item, vm)
             }
         }
     }

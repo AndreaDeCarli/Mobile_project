@@ -28,7 +28,7 @@ fun ShoppingNavGraph(navController: NavHostController) {
         startDestination = ShoppingRoute.Home
     ) {
         composable<ShoppingRoute.Home> {
-            Homepage(shopListState,navController)
+            Homepage(shopListState,navController, shopListVm)
         }
         composable<ShoppingRoute.Favorites> {
             Favorites(navController)
